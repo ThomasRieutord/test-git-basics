@@ -28,7 +28,7 @@ Cours en ligne Openclassroom : https://openclassrooms.com/fr/courses/7162856-ger
 import os
 
 pckgname = "mypackage"
-version = "0.0.1"
+version = "0.0"
 setupcontent = f"""import setuptools
 
 with open("README.md", "r") as fh:
@@ -53,6 +53,29 @@ setuptools.setup(
 )
 """
 
+readmecontent = f"""
+{pckgname.upper()}
+===================
+Short description of the package.
+
+Installation
+------------
+To install the package, run the following commands:
+```
+pip install -e .
+```
+
+Contents
+--------
+The package is composed of the following directories:
+  * `{pckgname}` -> contains only classes and functions of the package
+  * `examples` -> contains only executable programs using the package
+  * `tests` -> contains unitary tests
+  * `tmp` -> contains temporary files
+  * `local` -> contains local files, not meant be shared
+
+"""
+
 dirs = [pckgname,"tests","examples","local","tmp"]
 
 for dirname in dirs:
@@ -66,7 +89,7 @@ with open(".gitignore","w") as f:
     f.write("local/\n")
 
 with open("README.md","w") as f:
-    f.write(__doc__)
+    f.write(readmecontent)
 
 with open("setup.py","w") as f:
     f.write(setupcontent)
@@ -80,14 +103,6 @@ for dirname in dirs:
 
 print(
     f"""Package {pckgname} initiated.
-    Created repositories:
-        {pckgname} -> contains only classes and functions of the package
-        examples -> contains only executable programs using the package
-        tests -> contains unitary tests
-        tmp -> contains temporary files
-        local -> contains local files, not meant be shared
-    
-    To install the package:
-        `pip install -e .`
+    {readmecontent}
     """
 )
